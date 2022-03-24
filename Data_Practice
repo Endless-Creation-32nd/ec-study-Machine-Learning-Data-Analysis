@@ -1,0 +1,15 @@
+import pandas as pd # pandas를 호출할 때 pd를 사용한다.
+
+data_url = 'https://archive.ics.uci.edu/ml/machine-learning-databases/housing/housing.data'
+df_data = pd.read_csv(data_url, sep = '\s+', header = None)
+
+df_data.columns = ['CRIM','ZN','INDUS','CHAS','NOX','RM','AGE','DIS','RAD','TAX','PTRATIO','B','LSTAT','MEDV']
+df_data.head()
+
+import numpy as np
+
+df_data['weight_0'] = 1 # 앞서 x0는 상수항에 해당하는데 기존 데이터에 상수값에 해당하는 데이터가 없으므로 이를 추가해야 한다.
+df_data = df_data.drop("MEDV", axis = 1) # y값 제거
+df_matrix = df_data.values # 판다스의 데이터프레임 객체 데이터를 넘파이 데이타로 변환
+weight_vector = np.random.random_sample((14,1)) # 가중지(w)값을 무작위로 생성
+df_matrix.dot(weight_vector) # 가중치와 데이터의 내적을 실행하는 부분
